@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require "open-uri"
 require "text/hatena/auto_link/scheme"
 
@@ -74,27 +75,9 @@ module Text
 
         private
 
-        def _get_page_title(url)
-          begin
-            open(url) do |f|
-              content = f.read(131072) # 2^17
-              return "#{url} (notitle)" unless /<title.*?>(.*?)<\/title>/i =~ content
-              title = $1
-              if h = @option[:title_handler]
-                if /charset="?(.+?)"?$/i =~ f.content_type
-                  cset = $1.downcase
-                elsif /<meta[^>]+charset="?([\w\d\s\-]+)"?/i =~ content
-                  cset = $1.downcase
-                end
-                title = h.call(title, cset)
-              end
-              return title
-            end
-          rescue Timeout::Error
-            return "#{url} (timeout)"
-          rescue Exception => e
-            return "#{url} (#{e.message})"
-          end
+        # 毎回fetchしにいくと遅いのでurl自体をtitleに
+        def _get_page_title(url) 
+          return url
         end
       end
     end
