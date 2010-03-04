@@ -20,7 +20,6 @@ module Text
 
         if cat
           cat.gsub!(/\[([^\:\[\]]+)\]/u) do
-            puts $1
             w = $1
             ew = _encode($1)
             %Q![<a href="#{b}?word=[#{ew}]" class="sectioncategory">#{w}</a>]!
