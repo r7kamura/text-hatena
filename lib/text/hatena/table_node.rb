@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require "text/hatena/node"
 
 module Text
@@ -6,7 +7,6 @@ module Text
       def init
         @pattern = /^\|([^\|]*\|(?:[^\|]*\|)+)$/
       end
-
       def parse
         c = @context
         l = c.nextline
@@ -18,11 +18,11 @@ module Text
           break unless @pattern =~ l
           l = c.shiftline
           c.htmllines("#{t}\t<tr>")
-          l.scan(/([^\|]+)\|/) do |$_, *|
-            if sub!(/^\*/, "")
-              c.htmllines("#{t}\t\t<th>#{$_}</th>")
+          l.scan(/([^\|]+)\|/) do |item| # 元の記法だとRuby1.9だと動かない
+            if item[0].sub!(/^\*/, "")
+              c.htmllines("#{t}\t\t<th>#{item}</th>")
             else
-              c.htmllines("#{t}\t\t<td>#{$_}</td>")
+              c.htmllines("#{t}\t\t<td>#{item}</td>")
             end
           end
           c.htmllines("#{t}\t</tr>")
