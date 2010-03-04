@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require "text/hatena/utils/htmlsplit"
 
 module Text
@@ -5,7 +6,7 @@ module Text
     class HTMLFilter
       def initialize(args = {})
         @context = args[:context]
-        @html =  "" 
+        @html = ""
         @in_paragraph = false
         @in_anchor = false
         @in_superpre = false
@@ -14,11 +15,13 @@ module Text
         init
       end
 
+      # slideshareがうまくいかないからいくつか編集
       def init
         @parser = HTMLSplit
-#=begin
-        @allowtag = Regexp.union(/^(a|abbr|acronym|address|b|base|basefont|big|blockquote|br|col|em|caption|center|cite|code|div|dd|del|dfn|dl|dt|fieldset|font|form|hatena|h\d|hr|i|img|input|ins|kbd|label|legend|li|meta|ol|optgroup|option|p|pre|q|rb|rp|rt|ruby|s|samp|select|small|span|strike|strong|sub|sup|table|tbody|td|textarea|tfoot|th|thead|tr|tt|u|ul|var)$/, /^#{@additional_allowtag.keys.join('|')}$/)
-        @allallowattr = /^(accesskey|align|alt|background|bgcolor|border|cite|class|color|datetime|height|id|size|style|title|type|valign|width)$/
+        # objectとparamとembedを追加
+        @allowtag = /^(a|abbr|acronym|address|b|base|basefont|big|blockquote|br|col|em|caption|center|cite|code|div|dd|del|dfn|dl|dt|fieldset|font|form|hatena|h\d|hr|i|img|input|ins|kbd|label|legend|li|meta|ol|optgroup|option|p|pre|q|rb|rp|rt|ruby|s|samp|select|small|span|strike|strong|sub|sup|table|tbody|td|textarea|tfoot|th|thead|tr|tt|u|ul|var|object|param|embed)$/
+        # styleとnameとvalueとsrcとallowscriptaccessとallowfullscreenを追加
+        @allallowattr = /^(accesskey|align|alt|background|bgcolor|border|cite|class|color|datetime|height|id|size|title|type|valign|width|style|name|value|src|allowscriptaccess|allowfullscreen)$/
         @allowattr = {
           :a => 'href|name|target',
           :base => 'href|target',
@@ -42,8 +45,7 @@ module Text
           :td => 'rowspan|colspan|nowrap',
           :th => 'rowspan|colspan|nowrap',
           :textarea => 'name|cols|rows',
-        }.merge(@additional_allowtag)
-#=end
+        }
       end
 
       def parse(html)
