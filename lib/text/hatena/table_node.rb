@@ -18,8 +18,9 @@ module Text
           break unless @pattern =~ l
           l = c.shiftline
           c.htmllines("#{t}\t<tr>")
-          l.scan(/([^\|]+)\|/) do |item| # 元の記法だとRuby1.9だと動かない
-            if item[0].sub!(/^\*/, "")
+          l.scan(/([^\|]+)\|/) do |item|
+            item = item[0] # ブロックの引数には配列が入っている
+            if item.sub!(/^\*/, "")
               c.htmllines("#{t}\t\t<th>#{item}</th>")
             else
               c.htmllines("#{t}\t\t<td>#{item}</td>")
