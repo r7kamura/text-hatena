@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require "text/hatena/body_node"
 require "text/hatena/context"
 require "text/hatena/html_filter"
@@ -45,8 +46,7 @@ module Text
 
       parser = HTMLFilter.new({ :context => c }.merge(@htmlfilter_option))
       parser.parse(c.html)
-      @html = parser.html
-      
+      @html = parser.html.force_encoding("UTF-8") # ここをできればforce_encodingしないでやりたい...
       unless c.footnotes.empty?
         node = FootnoteNode.new({ :context => c, :ilevel => @ilevel })
         node.parse
