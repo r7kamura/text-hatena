@@ -17,9 +17,9 @@ module Text
           tex.gsub!(/\\([\[\]])/, '\1')
           tex.gsub!(/\s/, '~')
           tex.gsub!(/"/, '&quot;')
-          return sprintf('<img src="http://d.hatena.ne.jp/cgi-bin/mimetex.cgi?%s" class="tex" alt="%s">',
-                         tex, alt)
+          return sprintf('<img src="http://chart.apis.google.com/chart?cht=tx&chl=%s" class="tex" alt="%s">', tex, alt)
         end
+
       end
     end
   end
