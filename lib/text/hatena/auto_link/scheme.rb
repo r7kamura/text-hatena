@@ -31,7 +31,7 @@ module Text
         def html_encode(text)
           return nil if text.nil? or text.empty?
           text.gsub(/(\W)/n) do
-            sprintf("%%%02x", $1[0])
+            sprintf("%%%02x", $1[0].ord)
           end
         end
       end
