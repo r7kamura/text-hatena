@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class HTMLSplit
 =begin Start of Document
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
@@ -7,53 +8,53 @@ class HTMLSplit
 <link href="rubydoc.css" rel="stylesheet">
 </head>
 <body>
-| <a href="./">���</a> |
+| <a href="./">戻る</a> |
 <h1>HTML Split Library</h1>
-<p> HTML���ɤ߽񤭤��롣 �ɤ߹����ʸ��ϥ�����ʸ���������ˤʤ롣 to_s�᥽�åɤ�HTML���᤹���Ȥ�����롣</p>
-<h2>���饹����</h2>
+<p> HTMLを読み書きする。 読み込んだ文書はタグと文字列の配列になる。 to_sメソッドでHTMLに戻すことが出来る。</p>
+<h2>クラス一覧</h2>
 <table bgcolor="#FFFFFF" border="1">
-  <tr><td><a href="#HTMLSplit">HTMLSplit</a><td>HTML�򥿥���ʸ���ǡ�����ʬ�䤹�롣 
+  <tr><td><a href="#HTMLSplit">HTMLSplit</a><td>HTMLをタグと文字データに分割する。 
 <tr>
 	<td><a href="#CharacterData">CharacterData</a>
-	<td>ʸ���ǡ���
+	<td>文字データ
   <tr><td><a href="#EmptyElementTag">EmptyElementTag</a>
-	<td>�����ǤΥ���
+	<td>空要素のタグ
   <tr>
 	<td><a href="#StartTag">StartTag</a>
-	<td>���ϥ���
+	<td>開始タグ
   <tr>
 	<td><a href="#EndTag">EndTag</a>
-	<td>��λ����
+	<td>終了タグ
   <tr>
 	<td><a href="#Comment">Comment</a>
-	<td>������
+	<td>コメント
   <tr>
 	<td><a href="#Declaration">Declaration</a>
-	<td>���(DOCTYPE)
+	<td>宣言(DOCTYPE)
   <tr>
 	<td><a href="#SSI">SSI</a>
-	<td>SSI��
+	<td>SSI※
   <tr>
 	<td><a href="#ERuby">ERuby</a>
-	<td>eRuby/ASP/JSP������ץȢ�
+	<td>eRuby/ASP/JSPスクリプト※
   <tr>
 	<td><a href="#PHP">PHP</a>
-	<td>PHP������ץȢ�
+	<td>PHPスクリプト※
   </table>
-��������°���ͤʤɤ������ޤ줿������ץȤ�ǧ���Ǥ��ޤ���
-<h2>�Ȥ��� </h2>
-<h3>�ɤ߹���</h3>
+※タグの属性値などに埋め込まれたスクリプトは認識できません。
+<h2>使い方 </h2>
+<h3>読み込み</h3>
 <pre class="Exception"><samp>#!/usr/bin/ruby
 require "htmlsplit"
 
 obj = HTMlSplit.new(ARGF.read)</samp></pre>
-<h3>����</h3>
+<h3>出力</h3>
 <pre>
 obj.document.each {|e|
     print e.to_s
 }
 </pre>
-<h3>°��������</h3>
+<h3>属性の設定</h3>
 <pre>
 img = Tag('img/')
 img['src']='xxx.png'  #&lt;img src="xxx.png"&gt;
@@ -68,8 +69,8 @@ require "kconv"
 
 =begin OrderedHash
 <h2><a href="OrderedHash">OrderedHash</a></h2>
-<p>���֤���¸����ϥå���</p>
-<p>���Υ��饹��<URL:http://rubyist.g.hatena.ne.jp/secondlife/20060519/1148046815>�μ������ˤ��Ƥ��ޤ���</p>
+<p>順番を保存するハッシュ</p>
+<p>このクラスは<URL:http://rubyist.g.hatena.ne.jp/secondlife/20060519/1148046815>の実装を基にしています。</p>
 =end
 class OrderedHash
   include Enumerable
@@ -121,26 +122,26 @@ end
 =begin EmptyElementTag
  
 <h2><a name="EmptyElementTag">EmptyElementTag</a></h2>
-�����ǤΥ��� 
-<h3>���饹�᥽�å�</h3>
+空要素のタグ 
+<h3>クラスメソッド</h3>
 <dl compact>
   <dt>new(<var class="String">name</var>[,<var class="Hash">attr</var>])
-  <dd>���������֥������Ȥ��������롣 <var class="String">name</var>�ϥ�����̾�� <var class="Hash">attr</var>�ϥ�����°��nil�ޤ���Hash
+  <dd>新しいオブジェクトを生成する。 <var class="String">name</var>はタグの名前 <var class="Hash">attr</var>はタグの属性nilまたはHash
 </dl>
-<h3>�᥽�å�</h3>
+<h3>メソッド</h3>
 <dl compact>
   <dt class="String">name
-  <dd>����̾���֤���
+  <dd>タグ名を返す。
   <dt class="Hash">attr 
-  <dd>°�����֤���
+  <dd>属性を返す。
   <dt class="String">to_s 
-  <dd>HTML���֤���
+  <dd>HTMLを返す。
   <dt class="String">self[<var class="String">key</var>]
-  <dd>key�˴�Ϣ�Ť���줿°���ͤ��֤��ޤ���
-      �������륭������Ͽ����Ƥ��ʤ����ˤϡ�nil���֤��ޤ���
+  <dd>keyに関連づけられた属性値を返します。
+      該当するキーが登録されていない時には，nilを返します。
   <dt class="String">self[<var class="String">key</var>]= <var class="String">value</var>
-  <dd><var class="String">key</var>���Ф���<var class="String">value</var>���Ϣ�Ť��ޤ���
-      <var class="String">value</var>��nil�λ���<var class="String">key</var>���Ф����Ϣ��������ޤ���
+  <dd><var class="String">key</var>に対して<var class="String">value</var>を関連づけます。
+      <var class="String">value</var>がnilの時，<var class="String">key</var>に対する関連を取り除きます。
 </dl>
 =end
 class EmptyElementTag
@@ -177,26 +178,26 @@ class EmptyElementTag
 end
 =begin StartTag
 <h2>StartTag</h2>
-���ϥ���
-<h3>���饹�᥽�å�</h3>
+開始タグ
+<h3>クラスメソッド</h3>
 <dl compact>
   <dt>new(<var class="String">name</var>[,<var class="Hash">attr</var>])
-  <dd>���������֥������Ȥ��������롣 <var class="String">name</var>�ϥ�����̾�� <var class="Hash">attr</var>�ϥ�����°��nil�ޤ���Hash
+  <dd>新しいオブジェクトを生成する。 <var class="String">name</var>はタグの名前 <var class="Hash">attr</var>はタグの属性nilまたはHash
 </dl>
-<h3>�᥽�å�</h3>
+<h3>メソッド</h3>
 <dl compact>
   <dt class="String">name
-  <dd>����̾���֤���
+  <dd>タグ名を返す。
   <dt class="Hash">attr 
-  <dd>°�����֤���
+  <dd>属性を返す。
   <dt class="String">to_s 
-  <dd>HTML���֤���
+  <dd>HTMLを返す。
   <dt class="String">self[<var class="String">key</var>]
-  <dd>key�˴�Ϣ�Ť���줿°���ͤ��֤��ޤ���
-      �������륭������Ͽ����Ƥ��ʤ����ˤϡ�nil���֤��ޤ���
+  <dd>keyに関連づけられた属性値を返します。
+      該当するキーが登録されていない時には，nilを返します。
   <dt class="String">self[<var class="String">key</var>]= <var class="String">value</var>
-  <dd><var class="String">key</var>���Ф���<var class="String">value</var>���Ϣ�Ť��ޤ���
-      <var class="String">value</var>��nil�λ���<var class="String">key</var>���Ф����Ϣ��������ޤ���
+  <dd><var class="String">key</var>に対して<var class="String">value</var>を関連づけます。
+      <var class="String">value</var>がnilの時，<var class="String">key</var>に対する関連を取り除きます。
 </dl>
 =end
 class StartTag
@@ -233,18 +234,18 @@ class StartTag
 end
 =begin EndTag
 <h2>EndTag</h2>
-��λ����
-<h3>���饹�᥽�å�</h3>
+終了タグ
+<h3>クラスメソッド</h3>
 <dl compact>
   <dt>new(<var class="String">name</var>)
-  <dd>���������֥������Ȥ��������롣 <var class="String">name</var>�ϥ�����̾��
+  <dd>新しいオブジェクトを生成する。 <var class="String">name</var>はタグの名前
 </dl>
-<h3>�᥽�å�</h3>
+<h3>メソッド</h3>
 <dl compact>
   <dt class="String">name 
-  <dd>����̾���֤���
+  <dd>タグ名を返す。
   <dt class="String">to_s 
-  <dd>HTML���֤���
+  <dd>HTMLを返す。
 </dl>
 =end
 class EndTag
@@ -258,18 +259,18 @@ class EndTag
 end
 =begin CharacterData
 <h2>CharacterData</h2>
-ʸ���ǡ���
-<h3>���饹�᥽�å�</h3>
+文字データ
+<h3>クラスメソッド</h3>
 <dl compact>
   <dt>new(<var class="String">text</var>)
-  <dd>���������֥������Ȥ��������롣 <var class="String">text</var>�ϥƥ�����
+  <dd>新しいオブジェクトを生成する。 <var class="String">text</var>はテキスト
 </dl>
-<h3>�᥽�å�</h3>
+<h3>メソッド</h3>
 <dl compact>
   <dt class="String">text 
-  <dd>�ƥ����Ȥ��֤���
+  <dd>テキストを返す。
   <dt class="String">to_s 
-  <dd>HTML���֤���
+  <dd>HTMLを返す。
 </dl>
 =end
 class CharacterData
@@ -283,18 +284,18 @@ class CharacterData
 end
 =begin Declaraion
 <h2>Declaraion</h2>
-SGML���
-<h3>���饹�᥽�å�</h3>
+SGML宣言
+<h3>クラスメソッド</h3>
 <dl compact>
   <dt>new(<var class="String">text</var>)
-  <dd>���������֥������Ȥ��������롣 <var class="String">text</var>�ϥƥ�����
+  <dd>新しいオブジェクトを生成する。 <var class="String">text</var>はテキスト
 </dl>
-<h3>�᥽�å�</h3>
+<h3>メソッド</h3>
 <dl compact>
   <dt class="String">text 
-  <dd>�ƥ����Ȥ��֤���
+  <dd>テキストを返す。
   <dt class="String">to_s 
-  <dd>HTML���֤���
+  <dd>HTMLを返す。
 </dl>
 =end
 class Declaration
@@ -308,18 +309,18 @@ class Declaration
 end
 =begin Comment
 <h2>Comment</h2>
-������
-<h3>���饹�᥽�å�</h3>
+コメント
+<h3>クラスメソッド</h3>
 <dl compact>
   <dt>new(<var class="String">text</var>)
-  <dd>���������֥������Ȥ��������롣 <var class="String">text</var>�ϥƥ�����
+  <dd>新しいオブジェクトを生成する。 <var class="String">text</var>はテキスト
 </dl>
-<h3>�᥽�å�</h3>
+<h3>メソッド</h3>
 <dl compact>
   <dt class="String">text 
-  <dd>�ƥ����Ȥ��֤���
+  <dd>テキストを返す。
   <dt class="String">to_s 
-  <dd>HTML���֤���
+  <dd>HTMLを返す。
 </dl>
 =end
 class Comment
@@ -334,17 +335,17 @@ end
 =begin SSI
 <h2>SSI</h2>
 SSI
-<h3>���饹�᥽�å�</h3>
+<h3>クラスメソッド</h3>
 <dl compact>
   <dt>new(<var class="String">text</var>)
-  <dd>���������֥������Ȥ��������롣 <var class="String">text</var>�ϥƥ�����
+  <dd>新しいオブジェクトを生成する。 <var class="String">text</var>はテキスト
 </dl>
-<h3>�᥽�å�</h3>
+<h3>メソッド</h3>
 <dl compact>
   <dt class="String">text 
-  <dd>�ƥ����Ȥ��֤���
+  <dd>テキストを返す。
   <dt class="String">to_s 
-  <dd>HTML���֤���
+  <dd>HTMLを返す。
 </dl>
 =end
 class SSI
@@ -358,18 +359,18 @@ class SSI
 end
 =begin ERuby
 <h2>ERuby</h2>
-eRuby/ASP/JSP������ץ�
-<h3>���饹�᥽�å�</h3>
+eRuby/ASP/JSPスクリプト
+<h3>クラスメソッド</h3>
 <dl compact>
   <dt>new(<var class="String">text</var>)
-  <dd>���������֥������Ȥ��������롣 <var class="String">text</var>�ϥƥ�����
+  <dd>新しいオブジェクトを生成する。 <var class="String">text</var>はテキスト
 </dl>
-<h3>�᥽�å�</h3>
+<h3>メソッド</h3>
 <dl compact>
   <dt class="String">text 
-  <dd>�ƥ����Ȥ��֤���
+  <dd>テキストを返す。
   <dt class="String">to_s 
-  <dd>HTML���֤���
+  <dd>HTMLを返す。
 </dl>
 =end
 class ERuby
@@ -383,18 +384,18 @@ class ERuby
 end
 =begin PHP
 <h2>PHP</h2>
-PHP������ץ�
-<h3>���饹�᥽�å�</h3>
+PHPスクリプト
+<h3>クラスメソッド</h3>
 <dl compact>
   <dt>new(<var class="String">text</var>)
-  <dd>���������֥������Ȥ��������롣 <var class="String">text</var>�ϥƥ�����
+  <dd>新しいオブジェクトを生成する。 <var class="String">text</var>はテキスト
 </dl>
-<h3>�᥽�å�</h3>
+<h3>メソッド</h3>
 <dl compact>
   <dt class="String">text 
-  <dd>�ƥ����Ȥ��֤���
+  <dd>テキストを返す。
   <dt class="String">to_s 
-  <dd>HTML���֤���
+  <dd>HTMLを返す。
 </dl>
 =end
 class PHP
@@ -409,29 +410,29 @@ end
 =begin HTMLSplit
  
 <h2><a name="HTMLSplit">HTMLSplit</a></h2>
-HTML�ɤ߽� 
-<h3>���饹�᥽�å�</h3>
+HTML読み書き 
+<h3>クラスメソッド</h3>
 <dl compact>
   <dt>new(<var class="String">html</var>)
-  <dd>���������֥������Ȥ��������롣 <var class="String">html</var>��HTMLʸ��
+  <dd>新しいオブジェクトを生成する。 <var class="String">html</var>はHTML文書
 </dl>
-<h3>�᥽�å�</h3>
+<h3>メソッド</h3>
 <dl compact>
   <dt class="Array">document 
-  <dd>�ɥ�����Ȥ�������֤���
+  <dd>ドキュメントの配列を返す。
   <dt class="String">to_s 
-  <dd>HTML���֤���
+  <dd>HTMLを返す。
   <dt class="Iterator">each {|<var>obj</var>,<var class="Array">tag</var>| ...}
-  <dd>�ɥ�����Ȥγƥ��֥�������(<var>obj</var>)���Ф��ƥ֥��å���ɾ�����ޤ���
-      <var class="Array">tag</var>�ϳ��ϥ����Υꥹ�ȡ� [ StartTag , <var class="Integer">����ǥ���</var>] ��
+  <dd>ドキュメントの各オブジェクト(<var>obj</var>)に対してブロックを評価します。
+      <var class="Array">tag</var>は開始タグのリスト（ [ StartTag , <var class="Integer">インデクス</var>] ）
   <dt class="Integer">index(<var class="Class">class</var>, <var class="Integer">start</var>, <var class="Integer">end</var>, <var>value</var>, <var class="Integer">count</var>) {|obj| ...}
-  <dd><var class="Integer">start</var>����<var class="Integer">end</var>�ޤǤ����Ǥ�<var class="Class">class</var>��������<var class="Integer">count</var>���ܤ����Ǥΰ��֤��֤��ޤ���
-      ���������Ǥ��ҤȤĤ�ʤ��ä����ˤ�nil���֤��ޤ���<br>
-      <var>value</var>��nil�ʳ����ͤ���ꤷ�����ˤ����Ǥ�<var>value</var>���������������å���Ԥ��ޤ���<var class="Class">class</var>��EmptyElementTag,StartTag,EndTag�λ��ϥ���̾������ʳ��ϥƥ����Ȥˤ�ä���Ӥ��ޤ���<br>
-      �֥��å�����ꤷ�ƸƤӽФ��줿���ˤϥ֥��å������Ǥ���������ɾ�����롣
+  <dd><var class="Integer">start</var>から<var class="Integer">end</var>までの要素で<var class="Class">class</var>と等しい<var class="Integer">count</var>番目の要素の位置を返します。
+      等しい要素がひとつもなかった時にはnilを返します。<br>
+      <var>value</var>にnil以外の値を指定した時には要素が<var>value</var>と等しいかチェックを行います。<var class="Class">class</var>がEmptyElementTag,StartTag,EndTagの時はタグ名、それ以外はテキストによって比較します。<br>
+      ブロックを指定して呼び出された時にはブロックで要素が等しいか評価する。
   <dt class="Integer">end_index(<var class="Integer">start</var>)
-  <dd><var class="Integer">start</var>���б�����EndTag�Υ���ǥ������֤��ޤ���
-      �б��������Ǥ��ʤ��ä����ˤ�nil���֤��ޤ���<br>
+  <dd><var class="Integer">start</var>に対応するEndTagのインデクスを返します。
+      対応する要素がなかった時にはnilを返します。<br>
 </dl>
 =end
 	EMPTY = %w(area base basefont bgsound br col frame hr img input isindex 
@@ -484,14 +485,16 @@ HTML�ɤ߽�
   end
   private :make_tag
 
-  def initialize(html = nil, encoding = $KCODE)
+  # def initialize(html = nil, encoding = $KCODE)
+  def initialize(html = nil, encoding = 'UTF8')
     @empty_tags = EMPTY
     set_html(html, encoding) if html
   end
   attr_accessor :empty_tags
 
-  def set_html(html, encoding = $KCODE)
-		@document = []	#�ѡ�������HTML�Υꥹ��
+  # def set_html(html, encoding = $KCODE)
+  def set_html(html, encoding = 'UTF8')
+		@document = []	#パースしたHTMLのリスト
 		name = ''
 		text = ''
 		attr = OrderedHash.new
@@ -547,13 +550,13 @@ HTML�ɤ߽�
             redo
           end
 				end
-			when :SPACE	#°���֤ζ���
+			when :SPACE	#属性間の空白
 				case char
 				when '>'
           make_tag(name, attr)
 					text = ''
 					state = :TEXT
-        when '<'  # �Ĥ��ʤ����ϥ���
+        when '<'  # 閉じない開始タグ
           make_tag(name, attr)
           name = ''
           attr = OrderedHash.new
@@ -563,7 +566,7 @@ HTML�ɤ߽�
 					attrname=char
 					state = :ATTRNAME
 				end
-			when :ATTRNAME	#°��̾
+			when :ATTRNAME	#属性名
 				case char
 				when /\s/
 					state = :BEFOREEQUAL
@@ -610,7 +613,7 @@ HTML�ɤ߽�
 					text=char
 					state = :VALUE
 				end
-			when :VALUE		#��
+			when :VALUE		#値
 				case char
 				when /\s/
           attr[attrname.downcase] = HTMLSplit.unescapeHTML(text, encoding)
@@ -623,14 +626,14 @@ HTML�ɤ߽�
 				else
 					text << char
 				end
-			when :SQVALUE	#'��'
+			when :SQVALUE	#'値'
 				if c==39
           attr[attrname.downcase] = HTMLSplit.unescapeHTML(text, encoding)
 					state = :SPACE
 				else
 					text << char
 				end
-			when :DQVALUE	#"��"
+			when :DQVALUE	#"値"
 				if c==34
           attr[attrname.downcase] = HTMLSplit.unescapeHTML(text, encoding)
 					state = :SPACE
@@ -640,7 +643,7 @@ HTML�ɤ߽�
 			when :COMMENT
 				case char
 				when '>'
-					if text[-2,2]=='--'	#�����Ƚ�λ	
+					if text[-2,2]=='--'	#コメント終了	
 						text = text[0..-3]
 						if text=~/^#[a-z]+/	#SSI
 							@document << SSI.new(text)
@@ -658,7 +661,7 @@ HTML�ɤ߽�
 			when :ERUBY
 				case char
 				when '>'
-					if text[-1,1]=='%'	#eRuby��λ	
+					if text[-1,1]=='%'	#eRuby終了	
 						text = text[0..-2]
 						@document << ERuby.new(text)
 						text = ''
@@ -672,7 +675,7 @@ HTML�ɤ߽�
 			when :PHP
 				case char
 				when '>'
-					if text[-1,1]=='?'	#eRuby��λ	
+					if text[-1,1]=='?'	#eRuby終了	
 						text = text[0..-2]
 						@document << PHP.new(text)
 						text = ''
@@ -698,15 +701,15 @@ HTML�ɤ߽�
 				end
 			end
 		}
-		#EOF�ν���
+		#EOFの処理
 		case state
 		when :TEXT
 			@document << CharacterData.new(text) if text.length>0
 		when :TAGNAME
 			@document << CharacterData.new('<'+text)
-		when :SPACE	#°���֤ζ���
+		when :SPACE	#属性間の空白
       make_tag(name, attr)
-		when :ATTRNAME	#°��̾
+		when :ATTRNAME	#属性名
 			attr[attrname.downcase]=true
       make_tag(name, attr)
 		when :BEFOREEQUAL	#=
@@ -715,12 +718,12 @@ HTML�ɤ߽�
 		when :AFTEREQUAL	#=
 			attr[attrname.downcase]=true
       make_tag(name, attr)
-		when :VALUE		#��
+		when :VALUE		#値
       attr[attrname.downcase] = HTMLSplit.unescapeHTML(text, encoding)
       make_tag(name, attr)
-		when :SQVALUE	#'��'
+		when :SQVALUE	#'値'
       attr[attrname.downcase] = HTMLSplit.unescapeHTML(text, encoding)
-		when :DQVALUE	#"��"
+		when :DQVALUE	#"値"
       attr[attrname.downcase] = HTMLSplit.unescapeHTML(text, encoding)
 		when :COMMENT
 			if text=~/^#[a-zA-Z]+/	#SSI
@@ -872,11 +875,11 @@ END
 <link href="rubydoc.css" rel="stylesheet">
 </head>
 <body>
-| <a href="./">���</a> |
+| <a href="./">戻る</a> |
 <h1>HTML Split Library</h1>
-<p> HTML���ɤ߽񤭤��롣 �ɤ߹����ʸ��ϥ�����ʸ���������ˤʤ롣 to_s�᥽�å�
-��HTML���᤹���Ȥ�����롣</p>
-<h2>���饹����</h2>
+<p> HTMLを読み書きする。 読み込んだ文書はタグと文字列の配列になる。 to_sメソッド
+でHTMLに戻すことが出来る。</p>
+<h2>クラス一覧</h2>
   hogehoge
   <!-- comment -->
   <hr />
