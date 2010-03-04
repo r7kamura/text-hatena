@@ -17,6 +17,7 @@ module Text
           tex.gsub!(/\\([\[\]])/, '\1')
           tex.gsub!(/\s/, '~')
           tex.gsub!(/"/, '&quot;')
+          tex.gsub!(/\+/, '%2b')
           return sprintf('<img src="http://chart.apis.google.com/chart?cht=tx&chl=%s" class="tex" alt="%s">', tex, alt)
         end
 
