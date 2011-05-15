@@ -11,7 +11,7 @@ module Text
       @html = ""
       @baseuri = args[:baseuri] || ""
       @permalink = args[:permalink] || ""
-      @ilevel = Integer(args[:ilevel]) || 0 # level of default indent
+      @ilevel = args[:ilevel].nil? 0 : Integer(args[:ilevel]) || 0 # rewrite for Ruby1.9
       @invalidnode = args[:invalidnode] || []
       @sectionanchor = args[:sectionanchor] || "o-"
       @autolink_option = args[:autolink_option] || {}
